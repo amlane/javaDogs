@@ -286,5 +286,11 @@ public class Main {
         // key: 1, value: Dogs{breed='Corgie', averageWeight=30, apartment=true}
         // key: 0, value: Dogs{breed='Springer', averageWeight=50, apartment=false}
 
+        // key: 0, value: Dogs{breed='Chihuahua', averageWeight=75, apartment=true}
+        // key: 2, value: Dogs{breed='Corgie', averageWeight=30, apartment=true}
+        // key: 4, value: Dogs{breed='Poodle', averageWeight=13, apartment=true}
+        // key: 1, value: Dogs{breed='Springer', averageWeight=50, apartment=false}
+        // key: 5, value: Dogs{breed='Yorkie', averageWeight=6, apartment=true}
+
     }
 }
