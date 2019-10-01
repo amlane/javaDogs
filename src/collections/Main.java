@@ -22,6 +22,8 @@ public class Main {
         // choice in index (can be any data type)
         // fixed element type
         // varied length
+        // lets Java handle the order/ HashMaps don't keep order
+        // very performant
 
         System.out.println("*** Arrays ***");
         // You can initialize an Array like this:
@@ -179,7 +181,6 @@ public class Main {
         for (Dogs d : dogsArrayList) {
             System.out.println(d);
         }
-
         System.out.println();
 
         // Dogs{breed='Corgie', averageWeight=30, apartment=true}
@@ -197,7 +198,6 @@ public class Main {
         for (Dogs d : dogsArrayList) {
             System.out.println(d);
         }
-
         System.out.println();
 
         // Dogs{breed='Poodle', averageWeight=13, apartment=true}
@@ -215,7 +215,6 @@ public class Main {
         for (Dogs d : dogsArrayList) {
             System.out.println(d);
         }
-
         System.out.println();
 
         // Dogs{breed='Springer', averageWeight=50, apartment=false}
@@ -226,23 +225,27 @@ public class Main {
 
         System.out.println("*** HashMaps ***");
 
-        // HashMap<KEY, VALUE>
+        // keys -> reference index (unique)
+        // value -> find using the key
+
+        // < KEY, VALUE>
         HashMap<Integer, Dogs> dogsHashMap = new HashMap<Integer, Dogs>();
 
         int hashCount = 0;
         for (Dogs d : dogsArrayList) {
-            // put takes the KEY, VALUE (add: if key doesn't exist, put: will add or replace
-            // even if key exists)
+            // put = if the key does not exist, add it to the hashmap
+            // if the key does exist - replace
             dogsHashMap.put(hashCount, d);
             hashCount++;
         }
 
+        // free up memory from an ArrayList
         dogsArrayList.clear();
 
         System.out.println(dogsHashMap.get(3));
         System.out.println(dogsHashMap.size());
-        dogsHashMap.remove(3);
-        System.out.println(dogsHashMap.get(3));
+        dogsHashMap.remove(3); // doesn't not shift list around, key will be null
+        System.out.println(dogsHashMap.get(3)); // returns null for item removed from HashMap
         System.out.println(dogsHashMap.size());
         System.out.println();
 
@@ -260,12 +263,17 @@ public class Main {
         // key: 2, value: Dogs{breed='Doberman', averageWeight=27, apartment=false}
         // key: 4, value: Dogs{breed='Poodle', averageWeight=13, apartment=true}
 
+        // To sort a HashMap you have to convert it to any ArrayList
         ArrayList<HashMap.Entry<Integer, Dogs>> sortedMap = new ArrayList<HashMap.Entry<Integer, Dogs>>();
+
+        // add all the dogs from hashmap to the sorted map array list
         sortedMap.addAll(dogsHashMap.entrySet());
 
+        // sort by weight asc
         Collections.sort(sortedMap, new Comparator<HashMap.Entry<Integer, Dogs>>() {
             public int compare(HashMap.Entry<Integer, Dogs> o1, HashMap.Entry<Integer, Dogs> o2) {
-                return o1.getValue().getAvgWeight() - o2.getValue().getAvgWeight();
+                // return o1.getValue().getAvgWeight() - o2.getValue().getAvgWeight();
+                return o1.getValue().getBreed().compareToIgnoreCase(o2.getValue().getBreed());
             }
         });
         for (HashMap.Entry<Integer, Dogs> d : sortedMap) {
